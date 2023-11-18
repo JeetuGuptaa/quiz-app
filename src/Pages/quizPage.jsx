@@ -1,6 +1,8 @@
 import Header from "../components/quizHeader";
 import Question from "../components/question";
 import Options from "../components/options";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 const questions = [
     {
         question: "What is the capital of France?",
@@ -39,12 +41,13 @@ const questions = [
     },
 ];
 export default function QuizPage(props) {
+    const navigate = useNavigate();
     const handleClick = () => {
         if (props.markedAnswer.length === 0) {
             console.log("not marked");
-            return;
-        }
-        if (props.markedAnswer === questions[props.curState.question].answer) {
+        } else if (
+            props.markedAnswer === questions[props.curState.question].answer
+        ) {
             props.setCurState((prev) => {
                 return {
                     ...prev,
@@ -61,21 +64,38 @@ export default function QuizPage(props) {
             });
         }
     };
+
+    useEffect(
+        function () {
+            if (questions.length === props.curState.question) {
+                navigate("/score/sl", { state: { curState: props.curState } });
+            }
+        },
+        [props.curState]
+    );
+
     return (
         <>
-            <Header />
-            <div>Score : {props.curState.score}</div>
-            <Question question={questions[props.curState.question].question} />
-            <Options
-                options={questions[props.curState.question].options}
-                markedAnswer={props.markedAnswer}
-                setMarkedAnswer={props.setMarkedAnswer}
-            />
-            <button onClick={handleClick}>
-                {props.curState.question === questions.length - 1
-                    ? "Submit"
-                    : "Next"}
-            </button>
+            {props.curState.question === questions.length ? null : (
+                <>
+                    <Header />
+                    <div>Score : {props.curState.score}</div>
+
+                    <Question
+                        question={questions[props.curState.question].question}
+                    />
+                    <Options
+                        options={questions[props.curState.question].options}
+                        markedAnswer={props.markedAnswer}
+                        setMarkedAnswer={props.setMarkedAnswer}
+                    />
+                    <button onClick={handleClick}>
+                        {props.curState.question === questions.length - 1
+                            ? "Submit"
+                            : "Next"}
+                    </button>
+                </>
+            )}
         </>
     );
 }
