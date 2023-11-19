@@ -9,8 +9,12 @@ export default function QuizPage(props) {
     const { quizCode } = useParams();
     const [quizData, setQuizData] = useState({});
     let questions = [];
+    console.log(quizData);
     if (Object.keys(quizData).length !== 0) {
-        questions = quizData.data.questions; //added
+        console.log(quizData);
+        if (quizData.error) {
+            questions = [];
+        } else questions = quizData.data.questions; //added
     }
 
     const fetchData = async () => {
@@ -54,6 +58,12 @@ export default function QuizPage(props) {
             return (
                 <>
                     <h1>Loading</h1>
+                </>
+            );
+        } else if (quizData.error) {
+            return (
+                <>
+                    <h1>{quizData.error}</h1>
                 </>
             );
         } else {

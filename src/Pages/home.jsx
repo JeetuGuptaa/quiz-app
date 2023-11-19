@@ -8,29 +8,37 @@ export default function Home() {
         setQuizCode(e.target.value);
     };
     return (
-        <>
-            {attemptQuiz && (
-                <input
-                    type="text"
-                    value={quizCode}
-                    placeholder="Quiz Code"
-                    onChange={handleInput}
-                />
-            )}
-            {!attemptQuiz ? (
-                <button
-                    onClick={() => {
-                        setAttempt((prev) => !prev);
-                    }}
-                >
-                    Attempt Quiz
-                </button>
-            ) : (
-                <Link to={`/quiz/${quizCode}`} className="nav-link">
-                    Attempt Quiz
-                </Link>
-            )}
-            {!attemptQuiz && <button>Create Quiz</button>}
-        </>
+        <div id="home-container">
+            <div id="options-container">
+                {attemptQuiz && (
+                    <input
+                        type="text"
+                        value={quizCode}
+                        placeholder="Quiz Code"
+                        onChange={handleInput}
+                        id="home-input"
+                    />
+                )}
+                {!attemptQuiz ? (
+                    <div
+                        onClick={() => {
+                            setAttempt((prev) => !prev);
+                        }}
+                        className="home-button"
+                    >
+                        Attempt Quiz
+                    </div>
+                ) : (
+                    <Link to={`/quiz/${quizCode}`} className="home-button">
+                        Attempt Quiz
+                    </Link>
+                )}
+                {!attemptQuiz && (
+                    <Link to={"/createQuiz"} className="home-button">
+                        Create Quiz
+                    </Link>
+                )}
+            </div>
+        </div>
     );
 }

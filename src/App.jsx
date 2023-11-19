@@ -4,6 +4,7 @@ import Home from "./Pages/home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScoreBoard from "./Pages/score";
 import NotFound from "./Pages/notfound";
+import CreateQuiz from "./Pages/createQuiz";
 
 function App() {
     const [markedAnswer, setMarkedAnswer] = useState("");
@@ -16,6 +17,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/createQuiz" element={<CreateQuiz />} />
                 <Route
                     path="/quiz/:quizCode"
                     element={
