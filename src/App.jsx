@@ -17,7 +17,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route
-                    path="/quiz/:id"
+                    path="/quiz/:quizCode"
                     element={
                         <QuizPage
                             markedAnswer={markedAnswer}

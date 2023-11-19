@@ -1,52 +1,36 @@
 import Header from "../components/quizHeader";
 import Question from "../components/question";
 import Options from "../components/options";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-const questions = [
-    {
-        question: "What is the capital of France?",
-        options: ["New York", "London", "Paris", "Dublin"],
-        answer: "Paris",
-    },
-    {
-        question: "Who painted the Mona Lisa?",
-        options: [
-            "Vincent Van Gogh",
-            "Pablo Picasso",
-            "Leonardo Da Vinci",
-            "Claude Monet",
-        ],
-        answer: "Leonardo Da Vinci",
-    },
-    {
-        question: "What's 3 + 4",
-        options: ["7", "6", "5", "4"],
-        answer: "7",
-    },
-    {
-        question: "What's 2 to the power 11",
-        options: ["1024", "4096", "2048", "516"],
-        answer: "2048",
-    },
-    {
-        question: "What is the Binary Representation of 35",
-        options: ["100011", "110011", "100011", "100001"],
-        answer: "100011",
-    },
-    {
-        question: "What's 2 to the power 10",
-        options: ["1024", "4096", "2048", "516"],
-        answer: "1024",
-    },
-];
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 export default function QuizPage(props) {
     const navigate = useNavigate();
+    const { quizCode } = useParams();
+    const [quizData, setQuizData] = useState({});
+    let questions = [];
+    if (Object.keys(quizData).length !== 0) {
+        questions = quizData.data.questions; //added
+    }
+
+    const fetchData = async () => {
+        const response = await fetch(
+            `http://localhost:8000/api/v1/quiz/fetchQuiz/${quizCode}`
+        );
+        const json = await response.json();
+        setQuizData(json);
+    };
+
+    useEffect(function () {
+        fetchData();
+    }, []);
+
     const handleClick = () => {
         if (props.markedAnswer.length === 0) {
             console.log("not marked");
         } else if (
-            props.markedAnswer === questions[props.curState.question].answer
+            props.markedAnswer ===
+            questions[props.curState.question].correct_answer
         ) {
             props.setCurState((prev) => {
                 return {
@@ -65,37 +49,57 @@ export default function QuizPage(props) {
         }
     };
 
+    const content = () => {
+        if (quizData == {}) {
+            return (
+                <>
+                    <h1>Loading</h1>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    {props.curState.question === questions.length ? null : (
+                        <>
+                            <Header />
+                            <div>Score : {props.curState.score}</div>
+
+                            <Question
+                                question={
+                                    questions[props.curState.question].question
+                                }
+                            />
+                            <Options
+                                options={
+                                    questions[props.curState.question].options
+                                }
+                                markedAnswer={props.markedAnswer}
+                                setMarkedAnswer={props.setMarkedAnswer}
+                            />
+                            <button onClick={handleClick}>
+                                {props.curState.question ===
+                                questions.length - 1
+                                    ? "Submit"
+                                    : "Next"}
+                            </button>
+                        </>
+                    )}
+                </>
+            );
+        }
+    };
+
     useEffect(
         function () {
-            if (questions.length === props.curState.question) {
+            if (
+                questions.length === props.curState.question &&
+                questions.length !== 0
+            ) {
                 navigate("/score/sl", { state: { curState: props.curState } });
             }
         },
         [props.curState]
     );
 
-    return (
-        <>
-            {props.curState.question === questions.length ? null : (
-                <>
-                    <Header />
-                    <div>Score : {props.curState.score}</div>
-
-                    <Question
-                        question={questions[props.curState.question].question}
-                    />
-                    <Options
-                        options={questions[props.curState.question].options}
-                        markedAnswer={props.markedAnswer}
-                        setMarkedAnswer={props.setMarkedAnswer}
-                    />
-                    <button onClick={handleClick}>
-                        {props.curState.question === questions.length - 1
-                            ? "Submit"
-                            : "Next"}
-                    </button>
-                </>
-            )}
-        </>
-    );
+    return <>{content()}</>;
 }
