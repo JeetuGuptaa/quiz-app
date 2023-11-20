@@ -187,6 +187,7 @@ export default function AddQuestion(props) {
                 value={options.question}
                 onChange={handleChange}
                 rows="3"
+                placeholder="Type your Question"
             />
             {options.flags.question && options.question === "" ? (
                 <small className="warning">

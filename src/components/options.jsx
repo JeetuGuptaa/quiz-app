@@ -31,5 +31,5 @@ export default function Options(props) {
         );
     });
 
-    return <div>{options}</div>;
+    return <div id="quiz-answer-options">{options}</div>;
 }

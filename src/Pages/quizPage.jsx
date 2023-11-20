@@ -68,11 +68,16 @@ export default function QuizPage(props) {
             );
         } else {
             return (
-                <>
+                <div id="quiz-page">
                     {props.curState.question === questions.length ? null : (
                         <>
-                            <Header />
-                            <div>Score : {props.curState.score}</div>
+                            <Header
+                                answered={props.curState.question}
+                                questions={questions.length}
+                                question={props.curState.question + 1}
+                                skipped={0}
+                                score={props.curState.score}
+                            />
 
                             <Question
                                 question={
@@ -86,15 +91,19 @@ export default function QuizPage(props) {
                                 markedAnswer={props.markedAnswer}
                                 setMarkedAnswer={props.setMarkedAnswer}
                             />
-                            <button onClick={handleClick}>
-                                {props.curState.question ===
-                                questions.length - 1
-                                    ? "Submit"
-                                    : "Next"}
-                            </button>
+                            <div class="center">
+                                <div className="eightyperc">
+                                    <button onClick={handleClick} class="bttn">
+                                        {props.curState.question ===
+                                        questions.length - 1
+                                            ? "Submit"
+                                            : "Next"}
+                                    </button>
+                                </div>
+                            </div>
                         </>
                     )}
-                </>
+                </div>
             );
         }
     };
@@ -105,7 +114,9 @@ export default function QuizPage(props) {
                 questions.length === props.curState.question &&
                 questions.length !== 0
             ) {
-                navigate("/score/sl", { state: { curState: props.curState } });
+                navigate(`/score/${quizCode}`, {
+                    state: { curState: props.curState },
+                });
             }
         },
         [props.curState]
