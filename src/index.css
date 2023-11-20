@@ -21,7 +21,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    height: 15%;
+    height: 20%;
     align-items: center;
     border-bottom: 1px solid #979797;
 }
@@ -72,7 +72,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    border: 1px solid cadetblue;
+    border: 1px solid black;
     margin: 0.25rem;
 }
 
@@ -98,6 +98,15 @@ body {
     justify-content: center;
     flex-direction: row;
     width: 100%;
+}
+
+.loading {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .eightyperc {
@@ -290,4 +299,34 @@ body {
     right: 0.5rem;
     top: 0.5rem;
     font-size: 0.75rem;
+}
+
+.scorePage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.score {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 40%;
+    width: 30%;
+    background: linear-gradient(90deg, #74ebd5 0%, #9face6 100%);
+    border: 2px solid black;
+    border-radius: 8px;
+    row-gap: 1rem;
+}
+
+.scoreText span {
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+.scoreText {
+    display: flex;
+    flex-direction: row;
 }

@@ -5,15 +5,16 @@ export default function Options(props) {
 
     const options = props.options.map(function (option, index) {
         const radioStyles = {
-            backgroundColor: option === props.markedAnswer ? "Green" : "white",
+            backgroundColor:
+                option === props.markedAnswer ? "#59006f" : "white",
         };
 
         const optionStyles = {
             border:
                 option === props.markedAnswer
-                    ? "2px solid Green"
-                    : "1px solid cadetblue",
-            color: option === props.markedAnswer ? "Green" : "black",
+                    ? "2px solid #59006f"
+                    : "1px solid black",
+            color: option === props.markedAnswer ? "#59006f" : "black",
             fontWeight: option === props.markedAnswer ? "600" : "normal",
         };
         return (

@@ -3,10 +3,12 @@ import Question from "../components/question";
 import Options from "../components/options";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Loading from "../components/loading";
 
 export default function QuizPage(props) {
     const navigate = useNavigate();
     const { quizCode } = useParams();
+    const [loading, setLoading] = useState(true);
     const [quizData, setQuizData] = useState({});
     let questions = [];
     console.log(quizData);
@@ -28,6 +30,15 @@ export default function QuizPage(props) {
     useEffect(function () {
         fetchData();
     }, []);
+
+    useEffect(
+        function () {
+            if (Object.keys(quizData).length !== 0) {
+                setLoading(false);
+            }
+        },
+        [quizData]
+    );
 
     const handleClick = () => {
         if (props.markedAnswer.length === 0) {
@@ -54,10 +65,10 @@ export default function QuizPage(props) {
     };
 
     const content = () => {
-        if (quizData == {}) {
+        if (loading) {
             return (
                 <>
-                    <h1>Loading</h1>
+                    <Loading />
                 </>
             );
         } else if (quizData.error) {
@@ -91,9 +102,12 @@ export default function QuizPage(props) {
                                 markedAnswer={props.markedAnswer}
                                 setMarkedAnswer={props.setMarkedAnswer}
                             />
-                            <div class="center">
+                            <div className="center">
                                 <div className="eightyperc">
-                                    <button onClick={handleClick} class="bttn">
+                                    <button
+                                        onClick={handleClick}
+                                        className="bttn"
+                                    >
                                         {props.curState.question ===
                                         questions.length - 1
                                             ? "Submit"
@@ -115,7 +129,11 @@ export default function QuizPage(props) {
                 questions.length !== 0
             ) {
                 navigate(`/score/${quizCode}`, {
-                    state: { curState: props.curState },
+                    state: {
+                        score: props.curState.score,
+                        skipped: 0,
+                        answered: questions.length,
+                    },
                 });
             }
         },

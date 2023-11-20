@@ -1,3 +1,8 @@
 export default function NotFound() {
-    return <h1>Not Found</h1>;
+    const serverError = (
+        <div id="server-err-container">
+            <h1 id="err-text">Page doesn't Exists</h1>
+        </div>
+    );
+    return <>{serverError}</>;
 }
