@@ -74,7 +74,7 @@ export default function AddQuestion(props) {
 
     const handleSubmit = async (data) => {
         const response = await fetch(
-            "http://localhost:8000/api/v1/quiz/createQuiz/",
+            "https://indigo-katydid-wear.cyclic.app/api/v1/quiz/createQuiz/",
             {
                 method: "POST",
                 headers: {

@@ -21,7 +21,7 @@ export default function QuizPage(props) {
 
     const fetchData = async () => {
         const response = await fetch(
-            `http://localhost:8000/api/v1/quiz/fetchQuiz/${quizCode}`
+            `https://indigo-katydid-wear.cyclic.app/api/v1/quiz/fetchQuiz/${quizCode}`
         );
         const json = await response.json();
         setQuizData(json);
@@ -64,6 +64,12 @@ export default function QuizPage(props) {
         }
     };
 
+    const serverError = (
+        <div id="server-err-container">
+            <h1 id="err-text">{quizData.error}</h1>
+        </div>
+    );
+
     const content = () => {
         if (loading) {
             return (
@@ -72,11 +78,7 @@ export default function QuizPage(props) {
                 </>
             );
         } else if (quizData.error) {
-            return (
-                <>
-                    <h1>{quizData.error}</h1>
-                </>
-            );
+            return <>{serverError}</>;
         } else {
             return (
                 <div id="quiz-page">
