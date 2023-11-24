@@ -5,7 +5,7 @@ export default function SuccessMessage(props) {
     const copyURL = () => {
         const url =
             typeof process !== "undefined"
-                ? process.env.BaseURL
+                ? import.meta.env.BaseURL + "/quiz/"
                 : "http://localhost:5173/quiz/" + props.quizCode;
         navigator.clipboard.writeText(url);
         setCopyText("URL Copied");
