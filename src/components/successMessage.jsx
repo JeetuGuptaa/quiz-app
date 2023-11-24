@@ -3,9 +3,8 @@ import { useState } from "react";
 export default function SuccessMessage(props) {
     const [copyText, setCopyText] = useState("");
     const copyURL = () => {
-        const url = import.meta.env.BaseURL
-            ? import.meta.env.BaseURL + "/quiz/"
-            : "http://localhost:5173/quiz/" + props.quizCode;
+        const url =
+            "https://quiz-app-xi-nine.vercel.app/quiz/" + props.quizCode;
         navigator.clipboard.writeText(url);
         setCopyText("URL Copied");
     };
