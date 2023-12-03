@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import Loading from "./loading";
 export default function AddQuestion(props) {
     const [options, setOptions] = useState({
         question: "",
@@ -179,138 +179,149 @@ export default function AddQuestion(props) {
         }
     };
 
-    return (
-        <div id="cur-question-container">
-            <textarea
-                name="question"
-                id="textarea"
-                value={options.question}
-                onChange={handleChange}
-                rows="3"
-                placeholder="Type your Question"
-            />
-            {options.flags.question && options.question === "" ? (
-                <small className="warning">
-                    The question must not be empty.
-                </small>
-            ) : (
-                ""
-            )}
-            <div id="info">Choose the option to mark it as correct.</div>
+    const toShow = () => {
+        if (callEffect) {
+            return (
+                <>
+                    <Loading message="Publishing" />
+                </>
+            );
+        }
+        return (
+            <div id="cur-question-container">
+                <textarea
+                    name="question"
+                    id="textarea"
+                    value={options.question}
+                    onChange={handleChange}
+                    rows="3"
+                    placeholder="Type your Question"
+                />
+                {options.flags.question && options.question === "" ? (
+                    <small className="warning">
+                        The question must not be empty.
+                    </small>
+                ) : (
+                    ""
+                )}
+                <div id="info">Choose the option to mark it as correct.</div>
 
-            <div className="options-container">
-                <input
-                    type="radio"
-                    name="selected"
-                    value="1"
-                    checked={options.selected == "1"}
-                    onChange={handleChange}
-                />
-                <input
-                    type="text"
-                    value={options.option1}
-                    name="option1"
-                    onChange={handleChange}
-                    className="inp"
-                    placeholder="Option 1"
-                />
+                <div className="options-container">
+                    <input
+                        type="radio"
+                        name="selected"
+                        value="1"
+                        checked={options.selected == "1"}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        value={options.option1}
+                        name="option1"
+                        onChange={handleChange}
+                        className="inp"
+                        placeholder="Option 1"
+                    />
+                </div>
+                {options.flags.option1 && options.option1 === "" ? (
+                    <small className="warning">Option cannot be empty.</small>
+                ) : (
+                    ""
+                )}
+                <div className="options-container">
+                    <input
+                        type="radio"
+                        name="selected"
+                        value="2"
+                        checked={options.selected === "2"}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        value={options.option2}
+                        name="option2"
+                        onChange={handleChange}
+                        className="inp"
+                        placeholder="Option 2"
+                    />
+                </div>
+                {options.flags.option2 && options.option2 === "" ? (
+                    <small className="warning">Option cannot be empty.</small>
+                ) : (
+                    ""
+                )}
+                <div className="options-container">
+                    <input
+                        type="radio"
+                        name="selected"
+                        value="3"
+                        checked={options.selected === "3"}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        value={options.option3}
+                        name="option3"
+                        onChange={handleChange}
+                        className="inp"
+                        placeholder="Option 3"
+                    />
+                </div>
+                {options.flags.option3 && options.option3 === "" ? (
+                    <small className="warning">Option cannot be empty.</small>
+                ) : (
+                    ""
+                )}
+                <div className="options-container">
+                    <input
+                        type="radio"
+                        name="selected"
+                        value="4"
+                        checked={options.selected === "4"}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        onChange={handleChange}
+                        value={options.option4}
+                        name="option4"
+                        className="inp"
+                        placeholder="Option 4"
+                    />
+                </div>
+                {options.flags.option4 && options.option4 === "" ? (
+                    <small className="warning">Option cannot be empty.</small>
+                ) : (
+                    ""
+                )}
+                {options.flags.selected && options.selected === "" ? (
+                    <small className="warning">
+                        One option must be marked correct
+                    </small>
+                ) : (
+                    ""
+                )}
+                <div id="btn-container">
+                    <button
+                        className="btn"
+                        onClick={() => {
+                            handleClick("add");
+                        }}
+                    >
+                        Add Question
+                    </button>
+                    <button
+                        className="btn"
+                        onClick={() => {
+                            handleClick("publish");
+                        }}
+                    >
+                        Publish Quiz
+                    </button>
+                </div>
             </div>
-            {options.flags.option1 && options.option1 === "" ? (
-                <small className="warning">Option cannot be empty.</small>
-            ) : (
-                ""
-            )}
-            <div className="options-container">
-                <input
-                    type="radio"
-                    name="selected"
-                    value="2"
-                    checked={options.selected === "2"}
-                    onChange={handleChange}
-                />
-                <input
-                    type="text"
-                    value={options.option2}
-                    name="option2"
-                    onChange={handleChange}
-                    className="inp"
-                    placeholder="Option 2"
-                />
-            </div>
-            {options.flags.option2 && options.option2 === "" ? (
-                <small className="warning">Option cannot be empty.</small>
-            ) : (
-                ""
-            )}
-            <div className="options-container">
-                <input
-                    type="radio"
-                    name="selected"
-                    value="3"
-                    checked={options.selected === "3"}
-                    onChange={handleChange}
-                />
-                <input
-                    type="text"
-                    value={options.option3}
-                    name="option3"
-                    onChange={handleChange}
-                    className="inp"
-                    placeholder="Option 3"
-                />
-            </div>
-            {options.flags.option3 && options.option3 === "" ? (
-                <small className="warning">Option cannot be empty.</small>
-            ) : (
-                ""
-            )}
-            <div className="options-container">
-                <input
-                    type="radio"
-                    name="selected"
-                    value="4"
-                    checked={options.selected === "4"}
-                    onChange={handleChange}
-                />
-                <input
-                    type="text"
-                    onChange={handleChange}
-                    value={options.option4}
-                    name="option4"
-                    className="inp"
-                    placeholder="Option 4"
-                />
-            </div>
-            {options.flags.option4 && options.option4 === "" ? (
-                <small className="warning">Option cannot be empty.</small>
-            ) : (
-                ""
-            )}
-            {options.flags.selected && options.selected === "" ? (
-                <small className="warning">
-                    One option must be marked correct
-                </small>
-            ) : (
-                ""
-            )}
-            <div id="btn-container">
-                <button
-                    className="btn"
-                    onClick={() => {
-                        handleClick("add");
-                    }}
-                >
-                    Add Question
-                </button>
-                <button
-                    className="btn"
-                    onClick={() => {
-                        handleClick("publish");
-                    }}
-                >
-                    Publish Quiz
-                </button>
-            </div>
-        </div>
-    );
+        );
+    };
+
+    return <>{toShow()}</>;
 }

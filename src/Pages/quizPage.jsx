@@ -74,7 +74,7 @@ export default function QuizPage(props) {
         if (loading) {
             return (
                 <>
-                    <Loading />
+                    <Loading message="Loading" />
                 </>
             );
         } else if (quizData.error) {
