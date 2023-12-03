@@ -330,3 +330,31 @@ body {
     display: flex;
     flex-direction: row;
 }
+
+@media only screen and (max-width: 991px) {
+    #options-container,
+    #center {
+        width: 35%;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    #options-container,
+    #center {
+        width: 45%;
+        height: 35%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    html {
+        font-size: 14px;
+    }
+    #options-container {
+        width: 70%;
+    }
+
+    #center {
+        width: 55%;
+    }
+}

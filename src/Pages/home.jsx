@@ -17,6 +17,7 @@ export default function Home() {
                         placeholder="Quiz Code"
                         onChange={handleInput}
                         id="home-input"
+                        autoComplete="off"
                     />
                 )}
                 {!attemptQuiz ? (
