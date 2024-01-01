@@ -344,6 +344,10 @@ body {
         width: 45%;
         height: 35%;
     }
+    .score {
+        width: 45%;
+        height: 35%;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -356,5 +360,10 @@ body {
 
     #center {
         width: 55%;
+    }
+
+    .score {
+        width: 55%;
+        height: 20%;
     }
 }
